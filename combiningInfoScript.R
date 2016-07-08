@@ -17,7 +17,7 @@ cols=c("wildlife", "mollusks", "amphib",  "sagegrouse", "salmonids", "rapots", "
 
 resultsFrame=as.data.frame.matrix(table(finalDat$UniqueID, finalDat[,cols[1]]))
 resultsFrame$dataType=cols[1]
-resultsFrame$UniqueID="row.names(resultsFrame)"
+resultsFrame$UniqueID=row.names(resultsFrame)
 outResultsFrame=resultsFrame
 
 for (i in 2:length(cols)){
