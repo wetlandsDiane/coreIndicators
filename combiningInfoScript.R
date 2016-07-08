@@ -21,7 +21,7 @@ cols=c("assess", "wildlife", "mollusks", "amphib", "waterfowl", "shorebirds", "w
 cols=c("wildlife", "mollusks", "amphib",  "sagegrouse", "salmonids", "rapots", "songbirds")
 
 resultsFrame=as.data.frame.matrix(table(finalDat$UniqueID, finalDat[,cols[1]]))
-resultsFrame$dataType="test"
+resultsFrame$dataType="wildlife"
 resultsFrame$UniqueID=row.names(resultsFrame)
 outResultsFrame=resultsFrame
 
