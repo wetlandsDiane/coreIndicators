@@ -1,3 +1,8 @@
+#############################
+#Code for combining separate files from wildlife biologist into two final files
+#one for taxon-specific info and one for whether or not user can assess the trait
+#############################
+
 setwd("U:\\GWP\\Wetland\\CoreIndicatorsGrant\\wildlifeIndicatorChecklists\\wildlifeChecklist\\csv")
 
 #combine all files into one
@@ -29,18 +34,21 @@ for (i in 2:length(cols)){
 
 mergeDat=read.csv(fileList[1], header=TRUE, skip=2)
 outResults=merge(outResultsFrame, mergeDat[,c("UniqueID", "category", "indicator")], by="UniqueID")
+outResults=outResults[,-which(colnames(outResults)=="V1")] #this column is meaningless
 head(outResults)
 dim(outResults)
-setwd("U:\\GWP\\Wetland\\CoreIndicatorsGrant\\wildlifeIndicatorChecklists\\summarizedChecklistOutput\\")
+finalResults=outResults[,c("UniqueID", "dataType", "category", "Necessary", "Good", "Not Important", "Not Eval.", "indicator")]
 
-write.csv(outResults, "wildlifeSummaries.csv")
+setwd("U:\\GWP\\Wetland\\CoreIndicatorsGrant\\wildlifeIndicatorChecklists\\summarizedChecklistOutput\\")
+write.csv(finalResults,row.names=FALSE, "wildlifeSummaries.csv")
 
 
 assess1=as.data.frame.matrix(table(finalDat$UniqueID, finalDat$assess))
 assess1$UniqueID=row.names(assess1)
 assess2=merge(assess1, mergeDat[,c("UniqueID", "category", "indicator")], by="UniqueID")
+assess2=assess2[,-which(colnames(assess2)=="V1")]
 head(assess2)
 dim(assess2)
-write.csv(assess2, "canYouAssess.csv")
+write.csv(assess2, row.names=FALSE,"canYouAssess.csv")
 
 
